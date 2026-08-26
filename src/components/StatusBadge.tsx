@@ -8,5 +8,5 @@ const statusLabels: Record<ProjectStatus, string> = {
 }
 
 export function StatusBadge({ status, health }: { status: ProjectStatus; health: ProjectHealth }) {
-  return <span className={`status-badge status-${health}`}><i />{statusLabels[status]}</span>
+  return <span className={`status-badge status-${health}`}><i aria-hidden="true" />{statusLabels[status]}</span>
 }

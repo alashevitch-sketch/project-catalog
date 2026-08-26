@@ -1,9 +1,10 @@
 import { lazy, Suspense, useEffect } from 'react'
-import { ArrowLeft, ArrowUpRight, GitBranch } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, CircleAlert, CircleDot, GitBranch, GitFork, Star } from 'lucide-react'
 import { motion } from 'motion/react'
 import { Link, useParams } from 'react-router-dom'
 import { projects } from '../data/projects'
 import { StatusBadge } from '../components/StatusBadge'
+import { ciStatusMeta, formatCompactNumber, formatProjectDate } from '../lib/metrics'
 
 const ProjectSignalChart = lazy(() => import('../components/ProjectSignalChart'))
 
@@ -17,19 +18,19 @@ export function ProjectPage() {
   }, [project])
 
   if (!project) {
-    return <main className="not-found"><p className="eyebrow">404 / Project not found</p><h1>Такого проекта нет в публичном каталоге.</h1><Link to="/"><ArrowLeft size={17} /> Вернуться на dashboard</Link></main>
+    return <main id="main-content" tabIndex={-1} className="not-found"><p className="eyebrow">404 / Project not found</p><h1>Такого проекта нет в публичном каталоге.</h1><Link to="/"><ArrowLeft aria-hidden="true" size={17} /> Вернуться на dashboard</Link></main>
   }
 
   return (
-    <main className="project-page" style={{ '--project-accent': project.accent } as React.CSSProperties}>
+    <main id="main-content" tabIndex={-1} className="project-page" style={{ '--project-accent': project.accent } as React.CSSProperties}>
       <section className="project-hero">
-        <Link className="back-link" to="/"><ArrowLeft size={16} /> Dashboard</Link>
+        <Link className="back-link" to="/"><ArrowLeft aria-hidden="true" size={16} /> Dashboard</Link>
         <div className="project-kicker"><span>{project.id}</span><StatusBadge status={project.status} health={project.health} /></div>
         <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>{project.title}</motion.h1>
-        <div className="project-intro"><p>{project.summary}</p><div className="progress-ring" style={{ '--progress': `${project.progress * 3.6}deg` } as React.CSSProperties}><strong>{project.progress}%</strong><span>готовность</span></div></div>
+        <div className="project-intro"><p>{project.summary}</p><div className="progress-ring" role="progressbar" aria-label={`Готовность ${project.progress}%`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={project.progress} style={{ '--progress': `${project.progress * 3.6}deg` } as React.CSSProperties}><strong>{project.progress}%</strong><span>готовность</span></div></div>
         <div className="project-actions">
-          {project.website && <a href={project.website} target="_blank" rel="noreferrer">Открыть сайт <ArrowUpRight size={16} /></a>}
-          {project.repository && <a href={project.repository.url} target="_blank" rel="noreferrer"><GitBranch size={16} /> Репозиторий</a>}
+          {project.website && <a href={project.website} target="_blank" rel="noreferrer">Открыть сайт <ArrowUpRight aria-hidden="true" size={16} /></a>}
+          {project.repository && <a href={project.repository.url} target="_blank" rel="noreferrer"><GitBranch aria-hidden="true" size={16} /> Репозиторий</a>}
         </div>
       </section>
 
@@ -37,13 +38,23 @@ export function ProjectPage() {
         {project.metrics.map((metric) => <article key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><p>{metric.detail}</p></article>)}
       </section>
 
+      {project.github && <section className="github-section" aria-labelledby="github-title">
+        <div className="section-heading"><div><p className="eyebrow">Repository pulse</p><h2 id="github-title">Состояние репозитория</h2></div><span className={`ci-status ci-${project.github.ciStatus}`}><CircleDot aria-hidden="true" size={13} /> {ciStatusMeta[project.github.ciStatus].label}</span></div>
+        <div className="github-grid">
+          <article><Star aria-hidden="true" size={18} /><span>Stars</span><strong>{formatCompactNumber(project.github.stars)}</strong><p>интерес сообщества</p></article>
+          <article><GitFork aria-hidden="true" size={18} /><span>Forks</span><strong>{formatCompactNumber(project.github.forks)}</strong><p>ответвления проекта</p></article>
+          <article><CircleAlert aria-hidden="true" size={18} /><span>Open items</span><strong>{formatCompactNumber(project.github.openIssues)}</strong><p>issues и pull requests</p></article>
+          <article><GitBranch aria-hidden="true" size={18} /><span>Последний push</span><strong className="date-value"><time dateTime={project.github.pushedAt}>{formatProjectDate(project.github.pushedAt)}</time></strong><p>{ciStatusMeta[project.github.ciStatus].note}</p></article>
+        </div>
+      </section>}
+
       <section className="detail-grid">
         <article className="detail-panel signal-panel"><div className="panel-heading"><span>01</span><div><h2>Сигналы проекта</h2><p>Готовность по ключевым контурам</p></div></div><Suspense fallback={<div className="chart-loading">Загрузка…</div>}><ProjectSignalChart project={project} /></Suspense></article>
         <article className="detail-panel next-panel"><div className="panel-heading"><span>02</span><div><h2>Следующая точка</h2><p>Конкретное действие, которое двигает проект</p></div></div><blockquote>{project.nextAction}</blockquote><div className="stack-list">{project.stack.map((item) => <span key={item}>{item}</span>)}</div></article>
       </section>
 
       <section className="timeline-section">
-        <div className="section-heading"><div><p className="eyebrow">Delivery map</p><h2>Этапы и контрольные точки</h2></div><span>Обновлено {project.updatedAt}</span></div>
+        <div className="section-heading"><div><p className="eyebrow">Delivery map</p><h2>Этапы и контрольные точки</h2></div><span>Обновлено <time dateTime={project.updatedAt}>{formatProjectDate(project.updatedAt)}</time></span></div>
         <ol className="timeline">{project.phases.map((phase, index) => <li className={phase.status} key={phase.label}><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{phase.label}</h3><p>{phase.note}</p></div><i>{phase.status === 'complete' ? 'done' : phase.status === 'current' ? 'now' : 'next'}</i></li>)}</ol>
       </section>
 

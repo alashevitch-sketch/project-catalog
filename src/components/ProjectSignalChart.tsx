@@ -3,7 +3,7 @@ import type { Project } from '../types/project'
 
 export default function ProjectSignalChart({ project }: { project: Project }) {
   return (
-    <div className="signal-chart" aria-label={`Сигналы проекта ${project.title}`}>
+    <div className="signal-chart" role="region" aria-label={`Сигналы проекта ${project.title}`}>
       <ResponsiveContainer width="100%" height="100%">
         <RadarChart data={project.signals} accessibilityLayer>
           <PolarGrid stroke="rgba(244,241,233,.14)" />

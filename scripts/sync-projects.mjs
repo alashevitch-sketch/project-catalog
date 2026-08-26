@@ -34,7 +34,7 @@ const enriched = await Promise.all(manifest.projects.map(async (project) => {
   try {
     const [repo, runs] = await Promise.all([
       github(`/repos/${owner}/${name}`),
-      github(`/repos/${owner}/${name}/actions/runs?per_page=1`),
+      github(`/repos/${owner}/${name}/actions/runs?status=completed&per_page=1`),
     ])
     return {
       ...project,

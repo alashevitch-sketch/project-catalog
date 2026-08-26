@@ -11,22 +11,23 @@ export function Layout() {
 
   return (
     <div className="shell">
+      <a className="skip-link" href="#main-content">Перейти к содержанию</a>
       <header className="topbar">
         <Link className="brand" to="/" aria-label="На главную">
-          <span className="brand-mark"><FolderKanban size={18} /></span>
-          <span>EVGENIY / PROJECT SYSTEM</span>
+          <span className="brand-mark"><FolderKanban aria-hidden="true" size={18} /></span>
+          <span translate="no">EVGENIY / PROJECT SYSTEM</span>
         </Link>
         <nav aria-label="Главная навигация">
           <Link to="/">Dashboard</Link>
-          <a href="https://github.com/alashevitch-sketch" target="_blank" rel="noreferrer"><GitBranch size={15} /> GitHub</a>
+          <a href="https://github.com/alashevitch-sketch" target="_blank" rel="noreferrer"><GitBranch aria-hidden="true" size={15} /> GitHub</a>
         </nav>
-        <span className="live"><CircleDot size={13} /> PORTFOLIO ONLINE</span>
+        <span className="live"><CircleDot aria-hidden="true" size={13} /> PORTFOLIO ONLINE</span>
       </header>
       <Outlet />
       <footer>
         <div><span>Последняя синхронизация</span><strong>{formatSyncDate(snapshot.syncedAt)}</strong></div>
         <p>Публичный слой данных · без локальных путей и внутренних документов</p>
-        <a href="https://github.com/alashevitch-sketch/project-catalog" target="_blank" rel="noreferrer">Исходный код <GitBranch size={14} /></a>
+        <a href="https://github.com/alashevitch-sketch/project-catalog" target="_blank" rel="noreferrer">Исходный код <GitBranch aria-hidden="true" size={14} /></a>
       </footer>
     </div>
   )

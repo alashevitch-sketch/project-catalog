@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { projects } from '../data/projects'
-import { getPortfolioMetrics } from './metrics'
+import { formatCompactNumber, formatProjectDate, getPortfolioMetrics } from './metrics'
 
 describe('getPortfolioMetrics', () => {
   it('aggregates the published project snapshot', () => {
@@ -21,5 +21,10 @@ describe('getPortfolioMetrics', () => {
       onTrack: 0,
       averageProgress: 0,
     })
+  })
+
+  it('formats public GitHub signals for the Russian locale', () => {
+    expect(formatCompactNumber(1250)).toBe('1,3 тыс.')
+    expect(formatProjectDate('2026-08-26T12:00:00Z')).toContain('26 авг.')
   })
 })

@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-26T11:02:52.082Z",
+  "syncedAt": "2026-08-26T16:48:24.030Z",
   "source": "public-github-api+curated-manifest",
   "projects": [
     {
@@ -367,7 +367,14 @@
           "label": "Релиз",
           "value": 100
         }
-      ]
+      ],
+      "github": {
+        "stars": 0,
+        "forks": 0,
+        "openIssues": 0,
+        "pushedAt": "2026-08-26T11:05:54Z",
+        "ciStatus": "success"
+      }
     }
   ]
 }

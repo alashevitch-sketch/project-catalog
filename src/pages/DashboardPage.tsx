@@ -1,16 +1,19 @@
-import { lazy, Suspense, useMemo, useState } from 'react'
+import { lazy, Suspense, useMemo } from 'react'
 import { motion } from 'motion/react'
 import { Activity, CheckCircle2, Layers3, TrendingUp } from 'lucide-react'
 import { projects, snapshot } from '../data/projects'
 import { formatSyncDate, getPortfolioMetrics } from '../lib/metrics'
 import type { ProjectStatus } from '../types/project'
 import { ProjectCard } from '../components/ProjectCard'
+import { useSearchParams } from 'react-router-dom'
 
 const DashboardCharts = lazy(() => import('../components/DashboardCharts'))
 type Filter = 'all' | ProjectStatus
 
 export function DashboardPage() {
-  const [filter, setFilter] = useState<Filter>('all')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const requestedFilter = searchParams.get('status')
+  const filter: Filter = requestedFilter === 'active' || requestedFilter === 'completed' ? requestedFilter : 'all'
   const metrics = getPortfolioMetrics(projects)
   const filteredProjects = useMemo(() => filter === 'all' ? projects : projects.filter((project) => project.status === filter), [filter])
   const kpis = [
@@ -21,7 +24,7 @@ export function DashboardPage() {
   ]
 
   return (
-    <main>
+    <main id="main-content" tabIndex={-1}>
       <section className="hero" id="top">
         <motion.p className="eyebrow" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>Публичный контур проектов · 2026</motion.p>
         <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .07 }}>
@@ -36,7 +39,7 @@ export function DashboardPage() {
       <section className="metrics" aria-label="Ключевые метрики">
         {kpis.map(({ label, value, note, icon: Icon }) => (
           <article className="metric" key={label}>
-            <div><span>{label}</span><Icon size={17} /></div>
+            <div><span>{label}</span><Icon aria-hidden="true" size={17} /></div>
             <strong>{value}</strong><p>{note}</p>
           </article>
         ))}
@@ -50,11 +53,12 @@ export function DashboardPage() {
       <section className="project-section" aria-labelledby="projects-title">
         <div className="section-heading"><div><p className="eyebrow">Проектный радар</p><h2 id="projects-title">Текущий портфель</h2></div><div className="filters" role="group" aria-label="Фильтр проектов">
           {([['all', 'Все'], ['active', 'В работе'], ['completed', 'Завершено']] as const).map(([value, label]) => (
-            <button key={value} type="button" className={filter === value ? 'active' : ''} onClick={() => setFilter(value)}>{label}</button>
+            <button key={value} type="button" className={filter === value ? 'active' : ''} aria-pressed={filter === value} onClick={() => setSearchParams(value === 'all' ? {} : { status: value }, { replace: true })}>{label}</button>
           ))}
         </div></div>
         <motion.div className="project-grid" layout>
           {filteredProjects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
+          {filteredProjects.length === 0 && <p className="empty-state">Проектов с таким статусом пока нет.</p>}
         </motion.div>
       </section>
 
