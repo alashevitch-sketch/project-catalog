@@ -1,0 +1,373 @@
+{
+  "syncedAt": "2026-08-26T11:02:52.082Z",
+  "source": "public-github-api+curated-manifest",
+  "projects": [
+    {
+      "id": "PRJ-001",
+      "slug": "cafe-masterskie",
+      "title": "Кафе «Мастерские»",
+      "category": "Архитектура и рабочая документация",
+      "summary": "Координация архитектурных и инженерных решений и выпуск рабочего комплекта для кафе в парковой среде.",
+      "status": "active",
+      "health": "attention",
+      "progress": 46,
+      "startedAt": "2026-08-26",
+      "updatedAt": "2026-08-26",
+      "nextAction": "Закрыть блокирующие вводные и заморозить расстановку оборудования.",
+      "accent": "#ff7a59",
+      "stack": [
+        "Archicad 27",
+        "СПДС",
+        "Obsidian",
+        "PDF"
+      ],
+      "highlights": [
+        "Сформирована единая структура рабочего комплекта.",
+        "Зафиксированы границы архитектурной и инженерной ответственности.",
+        "Проектные решения связаны с проверками и реестрами."
+      ],
+      "metrics": [
+        {
+          "label": "Листы",
+          "value": "15",
+          "detail": "целевой рабочий комплект"
+        },
+        {
+          "label": "Этап",
+          "value": "03/06",
+          "detail": "заморозка планировки"
+        },
+        {
+          "label": "Решения",
+          "value": "02",
+          "detail": "ключевых принято"
+        },
+        {
+          "label": "Фокус",
+          "value": "P0",
+          "detail": "блокирующие вводные"
+        }
+      ],
+      "phases": [
+        {
+          "label": "Инвентаризация",
+          "status": "complete",
+          "note": "Исходники и рабочая модель определены."
+        },
+        {
+          "label": "Аудит",
+          "status": "complete",
+          "note": "Состав комплекта и границы проверены."
+        },
+        {
+          "label": "Заморозка",
+          "status": "current",
+          "note": "Уточняются оборудование и планировка."
+        },
+        {
+          "label": "Документация",
+          "status": "next",
+          "note": "Выпуск планов, разверток и ведомостей."
+        },
+        {
+          "label": "Координация",
+          "status": "next",
+          "note": "Сведение архитектуры и инженерных заданий."
+        },
+        {
+          "label": "Выпуск",
+          "status": "next",
+          "note": "Контрольный PDF и передача."
+        }
+      ],
+      "signals": [
+        {
+          "label": "Вводные",
+          "value": 55
+        },
+        {
+          "label": "Модель",
+          "value": 68
+        },
+        {
+          "label": "Документация",
+          "value": 41
+        },
+        {
+          "label": "Координация",
+          "value": 26
+        },
+        {
+          "label": "Проверка",
+          "value": 32
+        }
+      ],
+      "history": [
+        {
+          "label": "Старт",
+          "value": 8
+        },
+        {
+          "label": "Аудит",
+          "value": 21
+        },
+        {
+          "label": "Решения",
+          "value": 34
+        },
+        {
+          "label": "Задания",
+          "value": 40
+        },
+        {
+          "label": "Сейчас",
+          "value": 46
+        }
+      ]
+    },
+    {
+      "id": "PRJ-002",
+      "slug": "obsidian-codex-second-brain",
+      "title": "Obsidian Codex Second Brain",
+      "category": "Knowledge system и автоматизация",
+      "summary": "Локальная система проектной памяти для планов, сессий, решений, рисков, архитектуры и проверяемых результатов Codex.",
+      "status": "completed",
+      "health": "complete",
+      "progress": 100,
+      "startedAt": "2026-08-25",
+      "updatedAt": "2026-08-26",
+      "nextAction": "Собрать эксплуатационные метрики и провести обзор через 30 дней.",
+      "accent": "#7f9cff",
+      "stack": [
+        "Obsidian",
+        "PowerShell 7",
+        "Markdown",
+        "YAML"
+      ],
+      "highlights": [
+        "Единый реестр проектов и управляемая структура контекста.",
+        "Автоматизированные сессии, work logs и контроль уникальности ID.",
+        "Финальная приемка и сценарий восстановления пройдены."
+      ],
+      "metrics": [
+        {
+          "label": "Markdown",
+          "value": "58",
+          "detail": "управляемых документов"
+        },
+        {
+          "label": "Dashboards",
+          "value": "05",
+          "detail": "операционных представлений"
+        },
+        {
+          "label": "Ошибки",
+          "value": "00",
+          "detail": "на финальной приемке"
+        },
+        {
+          "label": "Статус",
+          "value": "1.0",
+          "detail": "передано в эксплуатацию"
+        }
+      ],
+      "phases": [
+        {
+          "label": "Требования",
+          "status": "complete",
+          "note": "Архитектура и правила согласованы."
+        },
+        {
+          "label": "Ядро",
+          "status": "complete",
+          "note": "Структура vault и шаблоны развернуты."
+        },
+        {
+          "label": "Автоматизация",
+          "status": "complete",
+          "note": "PowerShell workflow введен в действие."
+        },
+        {
+          "label": "Приемка",
+          "status": "complete",
+          "note": "Регресс и восстановление подтверждены."
+        },
+        {
+          "label": "Эксплуатация",
+          "status": "current",
+          "note": "Идет 30-дневный период наблюдения."
+        }
+      ],
+      "signals": [
+        {
+          "label": "Структура",
+          "value": 100
+        },
+        {
+          "label": "Автоматизация",
+          "value": 100
+        },
+        {
+          "label": "Трассировка",
+          "value": 100
+        },
+        {
+          "label": "Проверка",
+          "value": 100
+        },
+        {
+          "label": "Передача",
+          "value": 100
+        }
+      ],
+      "history": [
+        {
+          "label": "ТЗ",
+          "value": 18
+        },
+        {
+          "label": "Архитектура",
+          "value": 42
+        },
+        {
+          "label": "Ядро",
+          "value": 70
+        },
+        {
+          "label": "Автоматизация",
+          "value": 90
+        },
+        {
+          "label": "Приемка",
+          "value": 100
+        }
+      ]
+    },
+    {
+      "id": "PRJ-003",
+      "slug": "public-project-system",
+      "title": "Public Project System",
+      "category": "React-продукт и публичная аналитика",
+      "summary": "Публичный каталог проектов с детализированным dashboard, отдельными аналитическими страницами и автоматической публикацией.",
+      "status": "completed",
+      "health": "complete",
+      "progress": 100,
+      "startedAt": "2026-08-26",
+      "updatedAt": "2026-08-26",
+      "nextAction": "Подключать новые публичные проекты через безопасный манифест.",
+      "accent": "#c6ff3d",
+      "repository": {
+        "owner": "alashevitch-sketch",
+        "name": "project-catalog",
+        "url": "https://github.com/alashevitch-sketch/project-catalog"
+      },
+      "website": "https://alashevitch-sketch.github.io/project-catalog/",
+      "stack": [
+        "React 19",
+        "TypeScript",
+        "Vite",
+        "Motion",
+        "Recharts",
+        "GitHub Actions"
+      ],
+      "highlights": [
+        "Whitelisted public schema изолирует сайт от приватного контекста.",
+        "Dashboard сводит статусы, готовность и сигналы портфеля.",
+        "GitHub Actions проверяет и публикует обновления по расписанию."
+      ],
+      "metrics": [
+        {
+          "label": "Маршруты",
+          "value": "04",
+          "detail": "dashboard и детали"
+        },
+        {
+          "label": "Графики",
+          "value": "04",
+          "detail": "портфель и сигналы"
+        },
+        {
+          "label": "Sync",
+          "value": "6h",
+          "detail": "период обновления"
+        },
+        {
+          "label": "Privacy",
+          "value": "100%",
+          "detail": "только публичные поля"
+        }
+      ],
+      "phases": [
+        {
+          "label": "Стратегия",
+          "status": "complete",
+          "note": "Scope, risks и public boundary зафиксированы."
+        },
+        {
+          "label": "Design system",
+          "status": "complete",
+          "note": "Типографика, сетка и motion language собраны."
+        },
+        {
+          "label": "Dashboard",
+          "status": "complete",
+          "note": "Метрики и визуализации реализованы."
+        },
+        {
+          "label": "Automation",
+          "status": "complete",
+          "note": "Sync, tests и deploy workflow настроены."
+        },
+        {
+          "label": "Release",
+          "status": "complete",
+          "note": "Публичная версия опубликована."
+        }
+      ],
+      "signals": [
+        {
+          "label": "Данные",
+          "value": 100
+        },
+        {
+          "label": "Интерфейс",
+          "value": 100
+        },
+        {
+          "label": "Анимация",
+          "value": 100
+        },
+        {
+          "label": "Проверка",
+          "value": 100
+        },
+        {
+          "label": "Публикация",
+          "value": 100
+        }
+      ],
+      "history": [
+        {
+          "label": "План",
+          "value": 15
+        },
+        {
+          "label": "Система",
+          "value": 38
+        },
+        {
+          "label": "Интерфейс",
+          "value": 68
+        },
+        {
+          "label": "Проверка",
+          "value": 88
+        },
+        {
+          "label": "Релиз",
+          "value": 100
+        }
+      ]
+    }
+  ]
+}

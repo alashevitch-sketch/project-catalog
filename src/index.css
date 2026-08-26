@@ -1,0 +1,24 @@
+@import '@fontsource-variable/geist';
+
+:root {
+  font-family: 'Geist Variable', 'Segoe UI', sans-serif;
+  color: #f4f1e9;
+  background: #0b0d0c;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #f4f1e9;
+  --muted: #969a93;
+  --line: rgba(244, 241, 233, 0.13);
+  --acid: #c6ff3d;
+  --panel: #121512;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: #0b0d0c; }
+a { color: inherit; }
+button, input { font: inherit; }
+::selection { color: #0b0d0c; background: var(--acid); }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
