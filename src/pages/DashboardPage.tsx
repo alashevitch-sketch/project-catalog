@@ -32,7 +32,7 @@ export function DashboardPage() {
     }, { replace: true })
   }
   return <main id="main-content" tabIndex={-1}>
-    <MotionSection className="hero" id="top">
+    <MotionSection className="hero" id="top" tabIndex={-1}>
       <p className="eyebrow">Архитектура · цифровые проекты · проверенные результаты</p>
       <h1>Проекты как система.<br /><span>Статус виден сразу.</span></h1>
       <div className="hero-bottom">
@@ -46,11 +46,11 @@ export function DashboardPage() {
         <strong><AnimatedNumber value={value} suffix={suffix} padded={!suffix} /></strong><p>{note}</p>
       </article>)}
     </MotionSection>
-    <MotionSection className="analytics-section" aria-labelledby="analytics-title">
+    <MotionSection className="analytics-section" id="analytics" tabIndex={-1} aria-labelledby="analytics-title">
       <div className="section-heading"><div><p className="eyebrow">Показатели и динамика</p><h2 id="analytics-title">Состояние системы</h2></div><p className="section-note">Только зафиксированные измерения. <Hint label="Источники показателей">Проценты рассчитываются из завершённых задач или контрольных точек выбранных планов. Разные проекты имеют разный объём работ; сравнение показывает выполнение планов, а не сложность проектов.</Hint></p></div>
-      <Suspense fallback={<div className="charts-skeleton">Загрузка графиков…</div>}><DashboardCharts projects={projects} /></Suspense>
+      <Suspense fallback={<div className="charts-skeleton" data-section-loading>Загрузка графиков…</div>}><DashboardCharts projects={projects} /></Suspense>
     </MotionSection>
-    <MotionSection className="project-section" aria-labelledby="projects-title">
+    <MotionSection className="project-section" id="projects" tabIndex={-1} aria-labelledby="projects-title">
       <div className="section-heading"><div><p className="eyebrow">От общего к деталям</p><h2 id="projects-title">Все проекты</h2></div>
         <div className="filters" role="group" aria-label="Фильтр проектов">
           {([['all', 'Все'], ['active', 'В работе'], ['completed', 'Завершено'], ['planned', 'Запланировано'], ['paused', 'Приостановлено']] as const)
@@ -63,7 +63,7 @@ export function DashboardPage() {
         {filtered.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}
       </AnimatePresence>{filtered.length === 0 && <p className="empty-state">Проектов с таким состоянием пока нет. Выберите «Все».</p>}</motion.div>
     </MotionSection>
-    <MotionSection className="principles">
+    <MotionSection className="principles" id="about" tabIndex={-1}>
       <p className="eyebrow">Открыто только нужное</p>
       <div><h2>Публичность без потери контроля.</h2><p>Сайт получает разрешённые описания и числовые показатели. Рабочие документы, личные заметки и расположение файлов остаются в закрытой системе. Снимки показывают только публичные страницы.</p></div>
     </MotionSection>

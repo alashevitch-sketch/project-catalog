@@ -5,17 +5,17 @@ import type { Project } from '../types/project'
 import { ciStatusMeta } from '../lib/metrics'
 import { StatusBadge } from './StatusBadge'
 import { useAnimation } from './animation-context'
+import { ProjectCover } from './ProjectCover'
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { animated } = useAnimation()
-  const shot = project.screenshots?.[0]
   return <motion.article className="project-card" style={{ '--project-accent': project.accent } as React.CSSProperties}
     layout={animated} initial={animated ? { opacity: 0, y: 18 } : false}
     animate={{ opacity: 1, y: 0 }} exit={animated ? { opacity: 0, scale: 0.96 } : undefined}
     transition={{ duration: animated ? 0.35 : 0, delay: Math.min(index * 0.06, 0.18) }}
     whileHover={animated ? { y: -6 } : undefined}>
     <Link to={`/project/${project.slug}`}>
-      {shot && <div className="card-preview"><img src={import.meta.env.BASE_URL + shot.src} alt={shot.alt} width="1440" height="1000" loading="lazy" /><span>Снимок страницы проекта</span></div>}
+      <ProjectCover project={project} />
       <div className="card-content">
         <div className="card-head"><span>{project.id.replace('PRJ-', 'Проект ')}</span><ArrowUpRight aria-hidden="true" size={20} /></div>
         <div className="card-status"><StatusBadge status={project.status} health={project.health} /></div>

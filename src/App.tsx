@@ -3,6 +3,7 @@ import { Layout } from './components/Layout'
 import { DashboardPage } from './pages/DashboardPage'
 import { ProjectPage } from './pages/ProjectPage'
 import './App.css'
+import './components/site-enhancements.css'
 
 export default function App() {
   return (

@@ -9,6 +9,7 @@ import { AnimatedNumber, MotionSection, ProgressRing } from '../components/Motio
 import { useAnimation } from '../components/animation-context'
 import { Hint } from '../components/Hint'
 import { ScreenshotGallery } from '../components/ScreenshotGallery'
+import { ProjectCover } from '../components/ProjectCover'
 
 const ProjectSignalChart = lazy(() => import('../components/ProjectSignalChart'))
 
@@ -24,7 +25,7 @@ export function ProjectPage() {
   }, [project])
   if (!project) return <main id="main-content" tabIndex={-1} className="not-found"><p className="eyebrow">Страница не найдена</p><h1>Такого проекта нет в публичном каталоге.</h1><Link to="/"><ArrowLeft size={17} aria-hidden="true" /> Вернуться к обзору</Link></main>
   return <main id="main-content" tabIndex={-1} className="project-page" style={{ '--project-accent': project.accent } as React.CSSProperties}>
-    <MotionSection className="project-hero">
+    <MotionSection className="project-hero" id="overview" tabIndex={-1}>
       <Link className="back-link" to="/"><ArrowLeft size={16} aria-hidden="true" /> Все проекты</Link>
       <div className="project-kicker"><span>{project.id.replace('PRJ-', 'Проект ')}</span><StatusBadge status={project.status} health={project.health} /></div>
       <h1>{project.title}</h1>
@@ -37,6 +38,10 @@ export function ProjectPage() {
         {project.website && <a href={project.website} target="_blank" rel="noreferrer">Открыть сайт <ArrowUpRight size={16} aria-hidden="true" /></a>}
         {project.repository && <a href={project.repository.url} target="_blank" rel="noreferrer"><GitBranch size={16} aria-hidden="true" /> Исходный код</a>}
       </div>
+    </MotionSection>
+    <MotionSection className="cover-section" id="cover" tabIndex={-1} aria-labelledby="cover-title">
+      <div className="section-heading"><div><p className="eyebrow">Идея в линиях</p><h2 id="cover-title">Обложка проекта</h2></div><p className="section-note">Векторное представление <Hint label="Как читать обложку">Обложка передаёт тему проекта. Архитектурные композиции условные: они не показывают фактические размеры или планировку и не заменяют рабочие чертежи. Схемы цифровых проектов показывают основные связи.</Hint></p></div>
+      <ProjectCover project={project} large />
     </MotionSection>
     <MotionSection className="project-metric-grid" aria-label="Показатели проекта">
       {project.metrics.map(metric => <article key={metric.label}><span>{metric.label}</span><strong>{/^\d+$/.test(metric.value) ? <AnimatedNumber value={Number(metric.value)} /> : metric.value}</strong><p>{metric.detail}</p></article>)}
@@ -54,11 +59,11 @@ export function ProjectPage() {
         <article><GitBranch size={18} aria-hidden="true" /><span>Последнее изменение</span><strong className="date-value"><time dateTime={project.github.pushedAt}>{formatProjectDate(project.github.pushedAt)}</time></strong><p>{ciStatusMeta[project.github.ciStatus].note}</p></article>
       </div>
     </MotionSection>}
-    <MotionSection className="detail-grid" aria-label="Направления и дальнейшие действия">
+    <MotionSection className="detail-grid" id="indicators" tabIndex={-1} aria-label="Направления и дальнейшие действия">
       <article className="detail-panel signal-panel"><div className="panel-heading"><span>01</span><div><h2>Направления работ</h2><p>Завершённые пункты в каждой группе <Hint label="Направления работ">Каждая ось показывает долю завершённых пунктов одной группы. Нулевое значение означает отсутствие полностью закрытых пунктов, а не отсутствие проделанной работы.</Hint></p></div></div><Suspense fallback={<div className="chart-loading">Загрузка…</div>}><ProjectSignalChart project={project} /></Suspense></article>
       <article className="detail-panel next-panel"><div className="panel-heading"><span>02</span><div><h2>Следующий шаг</h2><p>Ближайшее действие по проекту</p></div></div><blockquote>{project.nextAction}</blockquote><div className="stack-list">{project.stack.map(item => <span key={item}>{item}</span>)}</div></article>
     </MotionSection>
-    <MotionSection className="timeline-section" aria-labelledby="phases-title">
+    <MotionSection className="timeline-section" id="stages" tabIndex={-1} aria-labelledby="phases-title">
       <div className="section-heading"><div><p className="eyebrow">От плана к результату</p><h2 id="phases-title">Этапы и контрольные точки</h2></div><span>План проверен <time dateTime={project.measurement?.checkedAt ?? project.updatedAt}>{formatProjectDate(project.updatedAt)}</time></span></div>
       <ol className="timeline">{project.phases.map((phase, index) => <motion.li className={phase.status} key={phase.label}
         initial={animated ? { opacity: 0, x: -12 } : false} whileInView={{ opacity: 1, x: 0 }} animate={animated ? undefined : { opacity: 1, x: 0 }}
