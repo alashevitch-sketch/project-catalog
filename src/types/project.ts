@@ -32,12 +32,14 @@ export interface Project {
   repository?: ProjectRepository
   website?: string
   github?: ProjectGithubSignals
+  measurement?: { completed: number; total: number; unit: 'задач' | 'этапов'; checkedAt: string; method: string }
+  screenshots?: Array<{ src: string; alt: string; caption: string; capturedAt: string }>
   stack: string[]
   highlights: string[]
   metrics: Array<{ label: string; value: string; detail: string }>
   phases: Array<{ label: string; status: PhaseStatus; note: string }>
   signals: Array<{ label: string; value: number }>
-  history: Array<{ label: string; value: number }>
+  history: Array<{ label: string; value: number; date?: string }>
 }
 
 export interface ProjectSnapshot {

@@ -40,8 +40,17 @@ export function formatCompactNumber(value: number) {
 }
 
 export const ciStatusMeta: Record<ProjectGithubSignals['ciStatus'], { label: string; note: string }> = {
-  success: { label: 'CI проходит', note: 'последняя сборка успешна' },
-  failure: { label: 'CI требует внимания', note: 'последняя сборка завершилась ошибкой' },
-  pending: { label: 'CI выполняется', note: 'сборка ещё не завершена' },
-  unknown: { label: 'CI без данных', note: 'статус workflow недоступен' },
+  success: { label: 'Проверка пройдена', note: 'последняя завершённая сборка успешна' },
+  failure: { label: 'Нужна проверка', note: 'последняя сборка завершилась ошибкой' },
+  pending: { label: 'Выполняется проверка', note: 'сборка ещё не завершена' },
+  unknown: { label: 'Нет данных о проверке', note: 'результат автоматической проверки недоступен' },
+}
+
+export function getPortfolioHistory(projects: Project[]) {
+  const dates = [...new Set(projects.flatMap(project => project.history.flatMap(point => point.date ? [point.date] : [])))].sort()
+  return dates.flatMap(date => {
+    const points = projects.map(project => project.history.filter(point => point.date && point.date <= date).sort((a, b) => a.date!.localeCompare(b.date!)).at(-1))
+    if (!points.length || points.some(point => !point)) return []
+    return [{ date, label: new Intl.DateTimeFormat('ru-RU', { day: '2-digit', month: 'short', timeZone: 'UTC' }).format(new Date(date)), value: Math.round(points.reduce((sum, point) => sum + point!.value, 0) / points.length) }]
+  })
 }

@@ -29,11 +29,12 @@ async function filesAt(target) {
 
 let files
 try {
-  const { stdout } = await execFileAsync('git', ['ls-files', '-z'], { cwd: root, encoding: 'utf8' })
+  const { stdout } = await execFileAsync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { cwd: root, encoding: 'utf8' })
   files = stdout.split('\0').filter(Boolean).map((file) => path.join(root, file))
 } catch {
   files = (await Promise.all(targets.map(filesAt))).flat()
 }
+files = [...new Set([...files, ...await filesAt('dist')])]
 for (const file of files) {
   if (/\.(png|woff2?|jpg|jpeg|gif)$/i.test(file)) continue
   const content = await readFile(file, 'utf8')

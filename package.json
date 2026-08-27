@@ -1,11 +1,12 @@
 {
   "name": "evgeniy-project-system",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "sync:data": "node scripts/sync-projects.mjs",
+    "export:obsidian": "node scripts/export-obsidian.mjs",
     "prebuild": "pnpm sync:data",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
